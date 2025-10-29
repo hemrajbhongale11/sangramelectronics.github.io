@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sangram Electronics</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* Navbar Styling */
+    .navbar-brand {
+      color: white !important;
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
+
+    .nav-link {
+      color: white !important;
+      margin-right: 10px;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover {
+      color: #0d6efd !important;
+      transform: scale(1.05);
+    }
+
+    .nav-link.active {
+      color: #0d6efd !important;
+      font-weight: 600;
+    }
+
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-outline-success {
+      color: #fff;
+      border-color: #0d6efd;
+    }
+
+    .btn-outline-success:hover {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+
+    /* Carousel Styling */
+    .carousel-item img {
+      height: 90vh;
+      object-fit: cover;
+      filter: brightness(90%);
+    }
+
+    .carousel-caption h3,
+    .carousel-caption p {
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Featured Products Section */
+    .section-title {
+      text-align: center;
+      margin: 60px 0 30px;
+      font-weight: 700;
+    }
+
+    .card {
+      border: none;
+      border-radius: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card img {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .footer {
+      background: #212529;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Sangram Electronics</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Carousel -->
+  <div id="carouselExampleFade" class="carousel slide carousel-fade">
+    <div class="carousel-inner">
+      <div class="carousel-item active position-relative">
+        <img src="https://sony.scene7.com/is/image/sonyglobalsolutions/diwali_banner_desktopp?$toutDesktop$" class="d-block w-100" alt="Sony Banner">
+        <div class="carousel-caption d-none d-md-block">
+          <h3 class="fw-bold">Welcome to Sangram Electronics</h3>
+          <p>Discover the Best Deals on Top Brands</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://www.lg.com/content/dam/lge/in/migration/offers/images/tp_main-up.jpg" class="d-block w-100" alt="LG Banner">
+      </div>
+      <div class="carousel-item">
+        <img src="https://corporate.whirlpoolindia.com/wp-content/uploads/2022/02/brand-bottom.png" class="d-block w-100" alt="Whirlpool Banner">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <!-- Featured Products -->
+  <section class="container my-5">
+    <h2 class="section-title text-dark">Featured Products</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://store.sony.co.nz/dw/image/v2/ABBC_PRD/on/demandware.static/-/Sites-sony-master-catalog/default/dw7a6437cc/images/K55XR80/K55XR80_01.png?sw=710&sh=710&sm=fit" class="card-img-top" alt="Sony TV">
+          <div class="card-body text-center">
+            <h5 class="card-title">Sony 55" Bravia OLED TV</h5>
+            <p class="card-text text-muted">Experience stunning visuals and immersive sound.</p>
+            <a href="#" class="btn btn-primary">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Large%20Appliances/Refrigerator/Images/249325_0_ybh8yu.png?tr=w-640" class="card-img-top" alt="LG Refrigerator">
+          <div class="card-body text-center">
+            <h5 class="card-title">LG Smart Inverter Refrigerator</h5>
+            <p class="card-text text-muted">Energy efficient and stylish design for modern homes.</p>
+            <a href="#" class="btn btn-primary">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://images.samsung.com/is/image/samsung/in-giga-party-audio-t50-mx-t50-xl-frontblack-211768811?$684_547_PNG$" class="card-img-top" alt="Samsung Sound System">
+          <div class="card-body text-center">
+            <h5 class="card-title">Samsung Party Audio System</h5>
+            <p class="card-text text-muted">Powerful bass with Bluetooth and DJ effects.</p>
+            <a href="#" class="btn btn-primary">View Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    © 2025 Sangram Electronics | All Rights Reserved
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
