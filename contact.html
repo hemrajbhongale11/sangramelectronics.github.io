@@ -4,122 +4,265 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contact - Sangram Electronics</title>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- Font Awesome (CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 
   <style>
-    body {
-      background-color: #121212;
-      color: white;
+    :root{
+      --fk-blue:#047BD5;
+      --fk-yellow:#F8D706;
+      --bg:#f1f3f6;
+      --text:#111827;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --border:#e5e7eb;
     }
-    .navbar-brand {
-      color: white !important;
-      font-weight: 600;
-      font-size: 1.3rem;
+
+    body{
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      min-height: 100vh;
     }
-    .nav-link {
-      color: white !important;
-      margin-right: 10px;
-      transition: all 0.2s ease-in-out;
+    a{ text-decoration:none; color:inherit; }
+
+    /* Flipkart-like topbar */
+    .fk-topbar{
+      background: var(--fk-blue);
+      color:#fff;
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+      box-shadow: 0 6px 18px rgba(0,0,0,.12);
     }
-    .nav-link:hover {
-      color: #0d6efd !important;
-      transform: scale(1.05);
+    .brand{
+      font-weight: 900;
+      letter-spacing: .2px;
+      font-size: 1.2rem;
+      white-space: nowrap;
+      line-height: 1.05;
+      color:#fff;
     }
-    .contact-section {
-      padding: 60px 20px;
+    .brand small{
+      display:block;
+      font-size: .72rem;
+      opacity:.9;
+      margin-top: 2px;
+      font-weight: 700;
+      letter-spacing: .3px;
     }
-    .contact-card {
-      background-color: #1c1c1c;
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      max-width: 600px;
-      margin: auto;
-    }
-    .contact-card a {
-      color: #0d6efd;
-      text-decoration: none;
-    }
-    .contact-card a:hover {
-      text-decoration: underline;
-    }
-    iframe {
-      width: 100%;
-      height: 350px;
+
+    .fk-search .form-control{
       border: 0;
-      border-radius: 15px;
-      margin-top: 30px;
+      border-radius: 2px 0 0 2px;
+      padding: .65rem .9rem;
+      font-size: .92rem;
     }
-    footer {
-      background-color: #0d0d0d;
+    .fk-search .btn{
+      border: 0;
+      border-radius: 0 2px 2px 0;
+      background: var(--fk-yellow);
+      color:#111;
+      font-weight: 900;
+      padding: .65rem 1rem;
+    }
+
+    .fk-actions .btn{
+      border-radius: 2px;
+      font-weight: 900;
+      padding: .55rem .85rem;
+      border: 1px solid rgba(255,255,255,.2);
+      color: #fff;
+      background: rgba(255,255,255,.08);
+    }
+    .fk-actions .btn:hover{ background: rgba(255,255,255,.14); }
+
+    /* Content cards */
+    .contact-section{ padding: 24px 0 10px; }
+    .panel{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 14px 40px rgba(17,24,39,.08);
+    }
+
+    .icon{
+      font-size: 1.15rem;
+      margin-right: 10px;
+      color: var(--fk-blue);
+      width: 22px;
+      text-align: center;
+    }
+
+    iframe{
+      width: 100%;
+      height: 340px;
+      border: 0;
+      border-radius: 14px;
+      margin-top: 14px;
+    }
+
+    footer{
+      background: #fff;
       padding: 20px 0;
       text-align: center;
-      color: #aaa;
-      margin-top: 50px;
+      color: var(--muted);
+      margin-top: 26px;
+      border-top: 1px solid var(--border);
     }
-    .icon {
-      font-size: 1.4rem;
-      margin-right: 10px;
-      color: #0d6efd;
+
+    /* Dark mode */
+    .dark-mode{
+      --bg:#0b1220;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --card:#0f172a;
+      --border:#1f2937;
     }
+    .dark-mode footer,
+    .dark-mode .panel{
+      background: var(--card);
+      border-color: var(--border);
+      color: var(--text);
+    }
+    .dark-mode a{ color: #bfe0ff; }
+    .dark-mode .icon{ color: #7dc6ff; }
   </style>
 </head>
 
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="index.html">Sangram Electronics</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <!-- TOP BAR -->
+  <div class="fk-topbar">
+    <div class="container-fluid px-3 px-lg-4 py-2">
+      <div class="d-flex align-items-center gap-3 flex-wrap">
+        <a href="index.html" class="brand">
+          Sangram
+          <small>Electronics</small>
+        </a>
 
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-          <li class="nav-item"><a class="nav-link active" href="#">Contact</a></li>
-        </ul>
+        <!-- Links (desktop) -->
+        <div class="d-none d-lg-flex align-items-center gap-2">
+          <a class="btn btn-sm text-white" style="border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.08);" href="index.html">Home</a>
+          <a class="btn btn-sm text-white" style="border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.08);" href="about.html">About</a>
+          <a class="btn btn-sm text-white" style="border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.16);" href="contact.html">Contact</a>
+        </div>
+
+        <!-- Search (optional on contact page) -->
+        <div class="flex-grow-1 fk-search" style="min-width:260px;">
+          <div class="input-group">
+            <input id="searchInput" class="form-control" placeholder="Search products (opens Home)" aria-label="Search products">
+            <button class="btn" type="button" onclick="goSearch()">Search</button>
+          </div>
+        </div>
+
+        <!-- Right actions -->
+        <div class="fk-actions d-flex align-items-center gap-2 ms-auto">
+          <a class="btn btn-sm d-lg-none" href="about.html">About</a>
+          <a class="btn btn-sm d-lg-none" href="contact.html">Contact</a>
+          <a class="btn btn-sm" href="index.html#cart" onclick="openCartFromHome(event)"><span id="cartCount">Cart</span></a>
+          <button class="btn btn-sm" onclick="toggleDark()">Theme</button>
+        </div>
       </div>
-    </div>
-  </nav>
-
-  <!-- Contact Section -->
-  <div class="contact-section container text-center">
-    <h2 class="mb-4">Contact Us</h2>
-    <p class="mb-5">We’d love to hear from you! Reach out to us using the details below.</p>
-
-    <div class="contact-card text-start">
-      <h4 class="mb-3 text-center">Owner Information</h4>
-      <p><i class="fas fa-user icon"></i><strong>Owner Name:</strong> Sangram Electronics</p>
-      <p><i class="fas fa-phone-alt icon"></i><strong>Mobile:</strong> <a href="tel:+919689683449">+91 96896 83449</a></p>
-      <p><i class="fas fa-envelope icon"></i><strong>Email:</strong> <a href="mailto:sangramelectronics@gmail.com">sangramelectronics@gmail.com</a></p>
-      <p><i class="fab fa-instagram icon"></i><strong>Instagram:</strong> 
-        <a href="https://www.instagram.com/sangram_electronics" target="_blank">@sangram_electronics</a>
-      </p>
-
-      <hr class="my-4" style="border-color:#333;">
-
-      <h5 class="text-center mb-3">📍 Our Store Location</h5>
-      <p class="text-center">Maruti Chowk, Shrigonda, Ahmednagar, Maharashtra, India</p>
-
-      <!-- ✅ Embedded Dynamic Google Map -->
-      <iframe 
-        src="https://www.google.com/maps?q=Maruti%20Chowk,%20Shrigonda,%20Maharashtra&output=embed"
-        allowfullscreen=""
-        loading="lazy">
-      </iframe>
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- CONTACT -->
+  <div class="container contact-section">
+    <div class="row g-3">
+      <div class="col-lg-7">
+        <div class="panel text-center">
+          <h2 class="mb-2 fw-bold">Contact Us</h2>
+          <p class="text-muted mb-4">We’d love to hear from you. Reach out using the details below.</p>
+
+          <div class="panel text-start">
+            <h4 class="mb-3 text-center fw-bold">Owner Information</h4>
+
+            <p class="mb-2">
+              <i class="fa-solid fa-user icon"></i>
+              <strong>Owner Name:</strong> Sangram Bunge
+            </p>
+
+            <p class="mb-2">
+              <i class="fa-solid fa-phone icon"></i>
+              <strong>Mobile:</strong>
+              <a href="tel:+919689683449">+91 96896 83449</a>
+            </p>
+
+            <p class="mb-2">
+              <i class="fa-solid fa-envelope icon"></i>
+              <strong>Email:</strong>
+              <a href="mailto:sangramelectronics@gmail.com">sangramelectronics@gmail.com</a>
+            </p>
+
+            <p class="mb-0">
+              <i class="fa-brands fa-instagram icon"></i>
+              <strong>Instagram:</strong>
+              <a href="https://www.instagram.com/sangram_4949" target="_blank" rel="noopener">@sangram_4949</a>
+            </p>
+
+            <hr class="my-4">
+
+            <h5 class="text-center mb-2 fw-bold">📍 Our Store Location</h5>
+            <p class="text-center mb-2 text-muted">Sangram Electronics ,Jamkhed-Shrigond road opp.Muktai Textstyles Shrigonda, Ahmednagar, Maharashtra, India</p>
+
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d867.7290974408473!2d74.7025049534786!3d18.61531880995507!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1768037226981!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="panel">
+          <h5 class="fw-bold mb-2">Quick Help</h5>
+          <ul class="mb-0">
+            <li>For orders: WhatsApp/Call on the given number.</li>
+            <li>For business: Email with product list & location.</li>
+            <li>For website issues: Contact developer.</li>
+          </ul>
+        </div>
+
+        <div class="panel mt-3">
+          <h6 class="fw-bold mb-2">Developer</h6>
+          <div class="text-muted">Designed by Hemraj Bhongale <br>
+            <i class="fa-brands fa-instagram icon"></i>
+              <strong>Instagram:</strong>
+            <a href="https://www.instagram.com/hemraj_bhongale_0011" target="_blank" rel="noopener">@hemraj_bhongale_0011</a>
+             <p class="mb-2">
+              <i class="fa-solid fa-phone icon"></i>
+              <strong>Mobile:</strong>
+              <a href="tel:+918767651236">+91 87676 51236</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer>
-    <p>© 2025 Sangram Electronics | Designed by Hemraj Bhongale</p>
+    <p class="mb-0">© 2025 Sangram Electronics | Designed by Hemraj Bhongale</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function toggleDark(){
+      document.documentElement.classList.toggle('dark-mode');
+    }
+
+    // Contact page search redirects to home with query
+    function goSearch(){
+      const q = document.getElementById('searchInput').value.trim();
+      if(!q) return window.location.href = "index.html";
+      window.location.href = "index.html?q=" + encodeURIComponent(q);
+    }
+
+    // Placeholder: cart opens on home page (since cart modal is in index.html)
+    function openCartFromHome(e){
+      e.preventDefault();
+      window.location.href = "index.html#cart";
+    }
+  </script>
 </body>
 </html>
