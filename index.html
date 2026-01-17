@@ -537,11 +537,25 @@
     function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
     // 🔥 NEW WHATSAPP FUNCTION
-    function whatsappInquiry(product) {
-      const message = `Hi! *${product.name}* interested.%0A%0ABrand: ${product.brand} | Category: ${product.category}%0A%0APrice: ₹${numberWithCommas(product.price)} | Rating: ${product.rating}★%0AAvailable? Stock?%0AImage: ${product.img}`;
-      const url = `https://wa.me/${OWNER_WHATSAPP.replace('+','')}?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
-    }
+    // 🔥 UPDATED WHATSAPP FUNCTION - IMAGE + LINK INCLUDED
+function whatsappInquiry(product) {
+  const productLink = `https://hemrajbhongale11.github.io/sangramelectronics.github.io/#product-${product.id}`;
+  const message = `Hi! *${product.name}* interested! 🛒
+
+📱 *Product Details:*
+• Brand: ${product.brand}
+• Category: ${product.category} 
+• Price: ₹${numberWithCommas(product.price)}
+• Rating: ${product.rating}★
+
+🖼️ *Product Image:* ${product.img}
+🔗 *Direct Link:* ${productLink}
+
+Available? Stock? Delivery?`;
+  
+  const url = `https://wa.me/${OWNER_WHATSAPP.replace('+','')}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+}
 
     function updateCartUI(){
       const count = Object.values(cart).reduce((s,n)=>s+n,0);
