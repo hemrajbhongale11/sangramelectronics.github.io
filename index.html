@@ -212,6 +212,21 @@
       font-size: .78rem;
     }
 
+    /* WhatsApp Button NEW */
+    .btn-whatsapp {
+      background: #25D366 !important;
+      color: white !important;
+      border: 0 !important;
+      font-weight: 900;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      padding: 0.4rem 0.8rem;
+    }
+    .btn-whatsapp:hover {
+      background: #128C7E !important;
+      color: white !important;
+    }
+
     /* Footer */
     .site-footer{
       margin-top: 28px;
@@ -417,49 +432,55 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     /***********************
-     * 1) PEXELS HERO SLIDER
+     * PEXELS HERO SLIDER
      ***********************/
-    const PEXELS_API_KEY = "M0MIDOjNc5bkl33u2eRgZ0s4Zp8zgU8PQN60gpyKm32mRpkjzXjFC9qt"; // replace [web:89][web:85]
+    const PEXELS_API_KEY = "M0MIDOjNc5bkl33u2eRgZ0s4Zp8zgU8PQN60gpyKm32mRpkjzXjFC9qt";
 
-    async function loadHeroFromPexels(){
+   async function loadHeroFromPexels(){
   if(!PEXELS_API_KEY || PEXELS_API_KEY.includes("YOUR_PEXELS_API_KEY_HERE")) return;
 
-  // 5-6 slides, each from a specific electronics category
-  const terms = [
-    "smart tv",
-    "ceiling fan",
-    "refrigerator",
-    "washing machine",
-    "air conditioner",
-    "home appliance"
-  ];
+  // 🔥 SHOP PHOTO PEHLE (static - hamesha same)
+  const shopPhoto = {
+    imgUrl: "./Sangram electronics shop.jpg", // SHOP IMAGE
+    alt: "Sangram Electronics Store"
+  };
+
+  const terms = ["smart tv","ceiling fan","refrigerator","washing machine","air conditioner","home appliance"];
 
   try{
     const requests = terms.map(async (term) => {
       const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(term)}&per_page=10&orientation=landscape`;
-      const res = await fetch(url, {
-        headers: { "Authorization": PEXELS_API_KEY }
-      });
+      const res = await fetch(url, { headers: { "Authorization": PEXELS_API_KEY } });
       if(!res.ok) return null;
       const data = await res.json();
       const photos = (data && data.photos) ? data.photos : [];
       if(!photos.length) return null;
 
-      // pick random photo from results so it "generates" new each refresh
       const pick = photos[Math.floor(Math.random() * photos.length)];
       const imgUrl = pick?.src?.landscape || pick?.src?.large || pick?.src?.original;
       return { imgUrl, alt: pick?.alt || term };
     });
 
     const results = (await Promise.all(requests)).filter(Boolean);
-    if(!results.length) return;
-
+    
     const heroInner = document.getElementById("heroInner");
     heroInner.innerHTML = "";
 
+    // 🔥 1st SLIDE: SHOP PHOTO (ALWAYS FIRST)
+    const shopSlide = document.createElement("div");
+    shopSlide.className = "carousel-item active";
+    shopSlide.innerHTML = `
+      <img loading="lazy"
+           src="${shopPhoto.imgUrl}"
+           class="d-block w-100 hero-img"
+           alt="${escapeHtml(shopPhoto.alt)}">
+    `;
+    heroInner.appendChild(shopSlide);
+
+    // 2nd onwards: API PHOTOS
     results.forEach((r, idx) => {
       const item = document.createElement("div");
-      item.className = "carousel-item" + (idx === 0 ? " active" : "");
+      item.className = "carousel-item";
       item.innerHTML = `
         <img loading="lazy"
              src="${r.imgUrl}"
@@ -469,21 +490,20 @@
       heroInner.appendChild(item);
     });
 
-    // Re-init carousel after dynamic update
+    // Re-init carousel
     const el = document.getElementById("heroCarousel");
     const instance = bootstrap.Carousel.getInstance(el);
     if(instance) instance.dispose();
     new bootstrap.Carousel(el, { interval: 3500, ride: "carousel" });
 
-  } catch (e){
-    console.warn(e);
-    // fallback slides will remain if something fails
+  } catch (e){ 
+    console.warn(e); 
+    // Fallback: shop photo + original unsplash images
   }
 }
 
-
     /***********************
-     * 2) STORE DATA + CART
+     * STORE DATA + CART + WHATSAPP
      ***********************/
     const products = [
       { id:1, name:"Sony Bravia 55\" OLED TV (XR-55A80L)", brand:"Sony", category:"TV", price:129999, rating:4.7, img:"https://media-ik.croma.com/prod/https://media.tatacroma.com/Croma%20Assets/Entertainment/Television/Images/273156_0_zbhvp6.png?updatedAt=1751264188216?tr=w-640", best:true },
@@ -508,17 +528,24 @@
       { id:20, name:"Samsung Galaxy Tab S9", brand:"Samsung", category:"Computers", price:64999, rating:4.4, img:"https://images.samsung.com/is/image/samsung/p6pim/in/sm-x700/gallery/in-galaxy-tab-s9-sm-x700-thumb-538773968.png", best:false }
     ];
 
+    // 🚨 IMPORTANT: YE APNA WHATSAPP NUMBER DAAL (10 digits with +91)
+    const OWNER_WHATSAPP = '+919689683449'; // 
     let cart = {};
     let activeCategory='all';
 
     function numberWithCommas(x){ return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,","); }
     function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+    // 🔥 NEW WHATSAPP FUNCTION
+    function whatsappInquiry(product) {
+      const message = `Hi! *${product.name}* interested.%0A%0ABrand: ${product.brand} | Category: ${product.category}%0A%0APrice: ₹${numberWithCommas(product.price)} | Rating: ${product.rating}★%0AAvailable? Stock?%0AImage: ${product.img}`;
+      const url = `https://wa.me/${OWNER_WHATSAPP.replace('+','')}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+
     function updateCartUI(){
       const count = Object.values(cart).reduce((s,n)=>s+n,0);
       document.getElementById('cartCount').innerText = `Cart (${count})`;
-      const m = document.getElementById('cartCount_m');
-      if(m) m.innerText = `Cart (${count})`;
     }
 
     function addToCart(id){ cart[id] = (cart[id]||0) + 1; updateCartUI(); }
@@ -582,13 +609,15 @@
             <div class="p-body">
               <div class="product-title">${escapeHtml(p.name)}</div>
               <div class="product-meta">${escapeHtml(p.category)}</div>
-
               <div class="d-flex justify-content-between align-items-center mt-2">
                 <div>
                   <div class="rating-pill"><span>${p.rating.toFixed(1)}</span> ★</div>
                   <div class="price mt-1">${numberWithCommas(p.price)}</div>
                 </div>
-                <button class="btn btn-sm btn-fk btn-add" onclick="addToCart(${p.id})">Add</button>
+                <div class="d-flex gap-1">
+                  <button class="btn btn-sm btn-fk btn-add" onclick="addToCart(${p.id})">Add</button>
+                  <button class="btn btn-sm btn-whatsapp btn-add" onclick="whatsappInquiry(${JSON.stringify(p).replace(/"/g, '&quot;')})" title="Ask Owner on WhatsApp">💬</button>
+                </div>
               </div>
             </div>
           </div>
@@ -611,13 +640,15 @@
             <div class="p-body">
               <div class="product-title">${escapeHtml(p.name)}</div>
               <div class="product-meta">${escapeHtml(p.brand)} • ${escapeHtml(p.category)}</div>
-
               <div class="d-flex justify-content-between align-items-center mt-2">
                 <div>
                   <div class="rating-pill"><span>${p.rating.toFixed(1)}</span> ★</div>
                   <div class="price mt-1">${numberWithCommas(p.price)}</div>
                 </div>
-                <button class="btn btn-sm btn-outline-dark btn-add" onclick="addToCart(${p.id})">Add</button>
+                <div class="d-flex gap-1">
+                  <button class="btn btn-sm btn-outline-dark btn-add" onclick="addToCart(${p.id})">Add</button>
+                  <button class="btn btn-sm btn-whatsapp btn-add" onclick="whatsappInquiry(${JSON.stringify(p).replace(/"/g, '&quot;')})" title="Ask Owner on WhatsApp">💬</button>
+                </div>
               </div>
             </div>
           </div>
